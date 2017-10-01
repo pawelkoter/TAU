@@ -28,5 +28,5 @@ public interface BookRepository {
     /**
      * Generuje wyjątek w sytuacji kiedy taki obiekt nie istnieje w bazie danych
      */ 
-    public void delete(Book book); 
+    public void delete(Book book) ; 
 }

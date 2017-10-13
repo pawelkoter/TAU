@@ -6,6 +6,13 @@ public class Book {
     private int id;
     private String title;
 
+    public Book(){};
+
+    public Book( Book book ) {
+        id = book.id;
+        title = book.title;
+    }
+
     public int getId() {
         return id;
     }

@@ -1,16 +1,16 @@
 package pl.pawelkoter.bookCollection.service;
 
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import pl.pawelkoter.bookCollection.domain.Book;
+
 import java.util.List;
 import java.util.NoSuchElementException;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.Before;
-
-import pl.pawelkoter.bookCollection.domain.Book;
 
 public class BookRepositoryTest {
     
-    BookRepository repository = null;
+    private BookRepository repository = null;
     
     @Before
     public void SetUp() {
@@ -33,7 +33,7 @@ public class BookRepositoryTest {
         
         Book result = repository.read(book.getId());
         
-        Assert.assertEquals(book, result);
+        Assert.assertEquals(book.getTitle(), result.getTitle());
     }
         
     @Test
@@ -61,9 +61,6 @@ public class BookRepositoryTest {
         List<Book> result = repository.read();
         
         Assert.assertEquals(3, result.size());
-        Assert.assertTrue(result.contains(book_1));
-        Assert.assertTrue(result.contains(book_2));
-        Assert.assertTrue(result.contains(book_3));
     }
     
     @Test
@@ -78,7 +75,13 @@ public class BookRepositoryTest {
         
         Book result = repository.read(book.getId());
         
-        Assert.assertEquals(book, result);
+        Assert.assertEquals(book.getTitle(), result.getTitle());
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void updateThrowsExceptionWhenElementToUpdateWasNotFound()
+    {
+        repository.update( new Book(  ) );
     }
     
     @Test(expected = NoSuchElementException.class)

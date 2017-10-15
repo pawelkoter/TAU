@@ -1,0 +1,1 @@
+https://travis-ci.org/pawelkoter/TAU.svg?branch=master

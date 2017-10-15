@@ -1,7 +1,6 @@
 package pl.pawelkoter.bookCollection.service;
 
 import pl.pawelkoter.bookCollection.domain.Book;
-
 import java.util.*;
 
 public class InMemoryBookRepository implements BookRepository {
@@ -32,7 +31,7 @@ public class InMemoryBookRepository implements BookRepository {
     }
 
     @Override
-    public void update(Book book) {
+    public void update(Book book) throws NoSuchElementException {
         if( _dbMap.containsKey( book.getId() )) {
             _dbMap.put( book.getId(), book );
         }
@@ -42,7 +41,7 @@ public class InMemoryBookRepository implements BookRepository {
     }
 
     @Override
-    public void delete(Book book) {
+    public void delete(Book book) throws NoSuchElementException {
         if( _dbMap.containsKey( book.getId() )) {
             _dbMap.remove(book.getId());
         } else {

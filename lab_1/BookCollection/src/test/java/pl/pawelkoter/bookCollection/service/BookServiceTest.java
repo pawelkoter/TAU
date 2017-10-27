@@ -8,7 +8,11 @@ import pl.pawelkoter.bookCollection.domain.Book;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.BDDMockito.willThrow;
+import static org.mockito.Mockito.times;
 
 public class BookServiceTest {
     private BookService bookService;
@@ -35,6 +39,33 @@ public class BookServiceTest {
 
     @Test
     public void deleteBooksTest() {
-        bookService.deleteBooks( new LinkedList< Book >(  ) );
+        //Given
+        Book delete1 = new Book();
+        Book delete2 = new Book();
+        List<Book> toDelete = new ArrayList<>(
+                Arrays.asList(
+                        delete1,
+                        delete2
+                )
+        );
+
+        //When
+        bookService.deleteBooks( toDelete );
+
+        //Then
+        then( bookRepositoryMock ).should(times( 1 )).delete( delete1 );
+        then( bookRepositoryMock ).should(times( 1 )).delete( delete2 );
+    }
+
+    @Test
+    public void deleteDoesNotThrowException_WhenRepositoryFailsToDelete() {
+        //Given
+        willThrow( NoSuchElementException.class ).given( bookRepositoryMock ).delete( any( Book.class ) );
+
+        //When
+        bookService.deleteBooks( Arrays.asList( new Book() ) );
+
+        //Then
+        //no exception is thrown
     }
 }

@@ -4,6 +4,7 @@ import pl.pawelkoter.bookCollection.domain.Book;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class BookService {
 
@@ -20,5 +21,13 @@ public class BookService {
 
     public void deleteBooks( List<Book > books) {
 
+        for ( Book book: books ) {
+            try {
+                repository.delete( book );
+            }
+            catch ( NoSuchElementException e ) {
+                //Ok, should be gone? It is.
+            }
+        }
     }
 }

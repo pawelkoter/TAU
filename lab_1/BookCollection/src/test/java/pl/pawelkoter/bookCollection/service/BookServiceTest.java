@@ -5,13 +5,14 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import pl.pawelkoter.bookCollection.domain.Book;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
-import static org.mockito.BDDMockito.willThrow;
+import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.times;
 
 public class BookServiceTest {
@@ -27,14 +28,24 @@ public class BookServiceTest {
     @Test
     public void searchByRegexTest() {
         //Given
-        given(bookRepositoryMock.read()).willReturn( new ArrayList< Book >() );
-        String pattern = "";
+        List<Book> books = new ArrayList<>(
+                Arrays.asList(
+                        new Book().setTitle( "Metro 2033" ),
+                        new Book().setTitle( "Witajcie w Rosji" ),
+                        new Book().setTitle( "Apokalypsis '89" ),
+                        new Book().setTitle( "Haszyszopenki" )
+                )
+        );
+        given(bookRepositoryMock.read()).willReturn( books );
+        String pattern = "\\d{4}|'\\d{2}";
 
         //When
         List<Book> result = bookService.searchTitleByRegex(pattern);
 
         //Then
-        assertThat(result).isNotNull();
+        assertThat( result ).isNotNull();
+        assertThat( result ).extracting( "title" )
+                            .containsOnly( "Metro 2033",  "Apokalypsis '89");
     }
 
     @Test

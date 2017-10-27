@@ -5,6 +5,7 @@ import pl.pawelkoter.bookCollection.domain.Book;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.regex.Pattern;
 
 public class BookService {
 
@@ -14,9 +15,19 @@ public class BookService {
         this.repository = repository;
     }
 
-    public List< Book > searchTitleByRegex( String pattern ) {
+    public List< Book > searchTitleByRegex( String regex ) {
+        Pattern pattern = Pattern.compile(regex);
 
-        return new ArrayList<>(  );
+        List<Book> allBooks = repository.read();
+
+        List<Book> result = new ArrayList<>();
+
+        for ( Book book : allBooks ) {
+            if ( pattern.matcher( book.getTitle() ).find() ) {
+                result.add( book );
+            }
+        }
+        return result;
     }
 
     public void deleteBooks( List<Book > books) {

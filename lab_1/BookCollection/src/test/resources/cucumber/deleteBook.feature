@@ -1,4 +1,4 @@
-Feature:
+Feature: Delete By List
   Scenario: Delete multiple books
     Given There are following books in repository
       |Title           |

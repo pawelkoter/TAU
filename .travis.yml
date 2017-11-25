@@ -1,5 +1,8 @@
-
 language: java
 
-before_script:
-  - cd ./lab_1/BookCollection/
+env:
+  - TEST_DIR=./lab_1/BookCollection/
+  - TEST_DIR=./lab_4
+  
+before_script: 
+  - cd $TEST_DIR

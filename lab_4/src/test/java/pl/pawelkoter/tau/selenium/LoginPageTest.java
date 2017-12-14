@@ -49,7 +49,6 @@ public class LoginPageTest {
     }
 
     @Test
-    @Ignore("This one doesn't work ;(")
     public void registrationFailure() {
         _loginPage.setEmail( "definitely#not@an,email" );
         _loginPage.clickSubmitButton();
@@ -57,22 +56,12 @@ public class LoginPageTest {
     }
 
     @Test
-    @Ignore("Couldn't make it work")
     public void registrationSuccess() {
         String email = UUID.randomUUID().toString();
         _loginPage.setEmail( email + "@email.org" );
         RegisterPage registerPage = _loginPage.goToRegisterPage();
 
-        try {
-            Thread.sleep( 1000);
-        } catch ( InterruptedException e ) {
-            e.printStackTrace();
-        }
-
         registerPage.takeScreenshot( "go_to_create_account_page" );
-
-        assertThat( _loginPage.getUrl() ).isEqualTo( LoginPage.CREATE_ACCOUNT_URL );
-
 
         registerPage.setFirstName( "Jaś" )
                 .setLastName( "Fasola" )
@@ -86,8 +75,9 @@ public class LoginPageTest {
                 .setPhoneNumber( "123456789" );
 
         registerPage.clickSubmitButton();
+        registerPage.takeScreenshot( "registred" );
 
-//        assertThat( true ).isTrue();
+        assertThat( _loginPage.getUrl() ).isEqualTo( LoginPage.MY_ACCOUNT_URL );
     }
 
     @Test
@@ -111,5 +101,4 @@ public class LoginPageTest {
 
         assertThat( _loginPage.isAuthenticationErrorDisplayed() ).isTrue();
     }
-
 }

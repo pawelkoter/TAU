@@ -101,7 +101,7 @@ public class RegisterPage {
     public void takeScreenshot(String fileName) {
         File scrFile = ((TakesScreenshot )driver).getScreenshotAs( OutputType.FILE);
         try {
-            FileUtils.copyFile(scrFile, new File(".\\" + fileName + ".png"));
+            FileUtils.copyFile(scrFile, new File(".\\target\\selenium-screenshots\\" + fileName + ".png"));
         } catch ( IOException e ) {
         }
     }

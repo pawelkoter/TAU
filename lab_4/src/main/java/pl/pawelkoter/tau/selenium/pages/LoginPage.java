@@ -5,6 +5,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -56,7 +57,9 @@ public class LoginPage {
     }
 
     public void clickSubmitButton() {
-        submitButton.click();
+        Actions submitActions = new Actions(driver);
+
+        submitActions.click(submitButton).pause(5000).build().perform();
     }
 
     public boolean isErrorMessageShown() {

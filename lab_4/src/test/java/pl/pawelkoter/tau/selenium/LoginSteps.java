@@ -16,16 +16,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LoginSteps {
     private LoginPage _loginPage;
-    private WebDriver _driver;
 
     @Given("^User is on login page$")
+    @SuppressWarnings("Duplicates")
     public void user_is_on_login_page() throws Throwable {
         DesiredCapabilities capabilities;
         capabilities = new DesiredCapabilities();
         capabilities.setJavascriptEnabled( true );
         capabilities.setCapability( PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, System.getProperty("phantomjs.binary"));
 //        capabilities.setCapability( PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, "E:\\phantomjs.exe");
-        _driver = new PhantomJSDriver(capabilities);
+        WebDriver _driver = new PhantomJSDriver( capabilities );
 
         _driver.manage()
                 .timeouts()

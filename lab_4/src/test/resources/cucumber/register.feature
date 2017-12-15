@@ -12,10 +12,11 @@ Feature: Register
     And Enters city <city>
     And Selects state <state>
     And Enters postal code <postal_code>
-    And Enters phone namber <phone_number>
+    And Enters phone number <phone_number>
     When Finally he clicks register button
     Then User account page shows up
 
     Examples:
-      | first_name | last_name | password | address_first_name | address_last_name | street | city    | state   | postal_code | phone_number |
-      | Jaś        | Fasola    | password | Jaś                | Fasola            | Błotna | Wąchock | Alabama | 12345       | 123456789    |
+      | first_name | last_name | password | address_first_name | address_last_name | street | city      | state   | postal_code | phone_number |
+      | Jaś        | Fasola    | password | Jaś                | Fasola            | Błotna | Wąchock   | Alabama | 12345       | 123456789    |
+      | Zenon      | Śmietana  | haselko! | Zenon              | Śmietan           | Krótka | Długoszów | Texas   | 77777       | 987456321    |

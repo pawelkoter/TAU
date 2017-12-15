@@ -98,7 +98,7 @@ public class RegisterSteps {
         _registerPage.setPostCode( postalCode );
     }
 
-    @Given("^Enters phone namber (.*)$")
+    @Given("^Enters phone number (.*)$")
     public void enters_phone_namber(String phoneNumber) throws Throwable {
         _registerPage.setPhoneNumber( phoneNumber );
     }
